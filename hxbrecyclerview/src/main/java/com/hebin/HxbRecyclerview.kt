@@ -59,138 +59,168 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
         val failView = LayoutInflater.from(context).inflate(R.layout.view_failed, null)
         val nomoreView = LayoutInflater.from(context).inflate(R.layout.view_nomore, null)
         val emptyView = LayoutInflater.from(context).inflate(R.layout.view_empty, null)
-        emptyView.ivEmpty.imageResource = R.drawable.ic_downgrey
         llNomore.addView(nomoreView)
         llFailed.addView(failView)
         llEmpty.addView(emptyView)
+        // 点击加载失败布局，分页加载
         llFailed.setOnClickListener { this.trlHxb.startLoadMore() }
+        // 点击为空的布局，强制刷新列表
         llEmpty.setOnClickListener { this.trlHxb.startRefresh() }
     }
 
+    // 自定义为空的布局
     fun setEmptyView(view: View) {
         llFailed.removeAllViews()
         llFailed.addView(view)
     }
 
+    // 自定义加载失败的布局
     fun setFailView(view: View) {
         llFailed.removeAllViews()
         llFailed.addView(view)
     }
 
+    // 自定义没有更多的布局
     fun setNomoreView(view: View) {
         llNomore.removeAllViews()
         llNomore.addView(view)
     }
 
 
+    // 设置布局样式
     fun setVerticalLinear() {
         val layoutManager = LinearLayoutManager(context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         this.rvHxb.layoutManager = layoutManager
     }
 
+    // 设置布局样式
     fun setHorizontalLinear() {
         val layoutManager = LinearLayoutManager(context)
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         this.rvHxb.layoutManager = layoutManager
     }
 
+    // 设置布局样式
     fun setGridLayout(size: Int) {
         val layoutManager = GridLayoutManager(context, size)
         this.rvHxb.layoutManager = layoutManager
     }
 
-    fun setAdapter(adapter: BaseQuickAdapter<*, *>) {
+    // 设置adapter
+    fun setAdapter(adapter: BaseQuickAdapter<*, *>?) {
         this.quickAdapter = adapter
         this.rvHxb.adapter = adapter
     }
 
-    fun setAdapter(adapter: BaseMultiItemQuickAdapter<*, *>) {
+    // 设置adapter
+    fun setAdapter(adapter: BaseMultiItemQuickAdapter<*, *>?) {
         this.multiAdapter = adapter
         this.rvHxb.adapter = adapter
     }
 
+    // 设置下拉刷新动画的颜色
     fun setIndicatorColor(color: Int) {
         headView?.setIndicatorColor(color)
     }
 
+    // 设置下拉刷新动画的样式
     fun setIndicatorId(indicator: Int) {
         headView?.setIndicatorId(indicator)
     }
 
+    // 设置下拉的最大高度
     fun setHeadHeight(headHeight: Float) {
         this.trlHxb.setHeaderHeight(headHeight)
     }
 
+    // 设置下拉图标的资源文件
     fun setArrowResource(@DrawableRes resId: Int) {
         headView?.setArrowResource(resId)
     }
 
+    // 设置下拉的字体颜色
     fun setTextColor(@ColorInt color: Int) {
         headView?.setTextColor(color)
     }
 
+    // 设置下拉的文字
     fun setPullDownStr(pullDownStr1: String) {
         headView?.setPullDownStr(pullDownStr1)
     }
 
+    // 设置下拉刷新完成的文字
     fun setReleaseRefreshStr(releaseRefreshStr1: String) {
         headView?.setReleaseRefreshStr(releaseRefreshStr1)
     }
 
+    // 设置下拉正在刷新的文字
     fun setRefreshingStr(refreshingStr1: String) {
         headView?.setRefreshingStr(refreshingStr1)
     }
 
+    // 自定义下拉刷新头部
     fun setHeadView(headView: IHeaderView) {
         this.trlHxb.setHeaderView(headView)
     }
 
+    // 设置下拉刷新的最大越界高度
     fun setMaxHeadHeight(headHeight: Float) {
         this.trlHxb.setMaxHeadHeight(headHeight)
     }
 
+    // 设置加载更多动画的颜色
     fun setBottomIndicatorColor(color: Int) {
         headView?.setIndicatorColor(color)
     }
 
+    // 设置加载更多动画的样式
     fun setBottomIndicatorId(indicator: Int) {
         headView?.setIndicatorId(indicator)
     }
 
+    // 设置加载更多的固定高度
     fun setBottomHeight(headHeight: Float) {
         this.trlHxb.setBottomHeight(headHeight)
     }
 
+    // 设置加载更多图标的资源文件
     fun setBottomArrowResource(@DrawableRes resId: Int) {
         headView?.setArrowResource(resId)
     }
 
+    // 设置加载更多的字体颜色
     fun setBottomTextColor(@ColorInt color: Int) {
         headView?.setTextColor(color)
     }
 
+    // 设置加载更多上拉刷新的显示文字
     fun setBottomPullDownStr(pullDownStr1: String) {
         headView?.setPullDownStr(pullDownStr1)
     }
 
+    // 设置加载更多刷新中的显示文字
     fun setBottomReleaseRefreshStr(releaseRefreshStr1: String) {
         headView?.setReleaseRefreshStr(releaseRefreshStr1)
     }
 
+    // 设置加载更多刷新完成的显示文字
     fun setBottomRefreshingStr(refreshingStr1: String) {
         headView?.setRefreshingStr(refreshingStr1)
     }
 
+    // 设置加载更多的最大高度
     fun setMaxBottomHeight(bottomHeight: Float) {
         this.trlHxb.setMaxHeadHeight(bottomHeight)
     }
 
+    // 设置加载更多的布局
     fun setBottomView(bottomView: IBottomView) {
         this.trlHxb.setBottomView(bottomView)
     }
 
     fun setListener(listener: Listener) {
+        // 刷新、加载更多
         this.trlHxb.setOnRefreshListener(object : RefreshListenerAdapter() {
             override fun onRefresh(refreshLayout: TwinklingRefreshLayout?) {
                 super.onRefresh(refreshLayout)
@@ -211,6 +241,7 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
                 listener.onLoadMore()
             }
         })
+        //  点击事件、长按事件
         if (quickAdapter != null) {
             quickAdapter?.setOnItemChildClickListener { adapter, view, position -> listener.onItemClick(adapter, view, position) }
             quickAdapter?.onItemChildLongClickListener = BaseQuickAdapter.OnItemChildLongClickListener { adapter, view, position ->
@@ -218,6 +249,7 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
                 false
             }
         }
+        // 点击事件、长按事件
         if (multiAdapter != null) {
             multiAdapter?.setOnItemChildClickListener { adapter, view, position -> listener.onItemClick(adapter, view, position) }
             multiAdapter?.onItemChildLongClickListener = BaseQuickAdapter.OnItemChildLongClickListener { adapter, view, position ->
@@ -227,22 +259,27 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
         }
     }
 
+    // 刷新完成
     fun refreshComplete() {
         this.trlHxb.finishRefreshing()
     }
 
+    // 加载更多完成
     fun loadMoreComplete() {
         this.trlHxb.finishLoadmore()
     }
 
+    // 开启或者关闭刷新
     fun setEnableRefresh(isEnable: Boolean) {
         this.trlHxb.setEnableRefresh(isEnable)
     }
 
+    // 开启或者关闭加载更多
     fun setEnableLoadmore(isEnable: Boolean) {
         this.trlHxb.setEnableLoadmore(isEnable)
     }
 
+    // 加载失败
     fun loadFailed() {
         loadMoreComplete()
         setEnableLoadmore(false)
@@ -251,6 +288,7 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
         llNomore.setGone()
     }
 
+    // 没有更多
     fun setNomore() {
         loadMoreComplete()
         setEnableLoadmore(false)
@@ -259,6 +297,7 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
         llNomore.setVisible()
     }
 
+    // 显示空布局
     fun setEmpty() {
         loadMoreComplete()
         refreshComplete()
@@ -269,18 +308,22 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
         llEmpty.setVisible()
     }
 
+    // 强制刷新
     fun startRefresh() {
         this.trlHxb.startRefresh()
     }
 
+    // 强制 加载更多
     fun startLoadMore() {
         this.trlHxb.startLoadMore()
     }
 
+    // 隐藏全部刷新布局
     fun setPureScrollModeOn() {
         this.trlHxb.setPureScrollModeOn()
     }
 
+    // 悬浮式下拉刷新
     fun setFloatRefresh(isFloat: Boolean) {
         this.trlHxb.setFloatRefresh(isFloat)
     }

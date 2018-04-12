@@ -3,6 +3,7 @@
 package com.hebin.anko
 
 import android.view.View
+import com.hebin.entity.MultipleItem
 
 /**
  * Author Hebin
@@ -26,4 +27,17 @@ inline fun View.setVisible() {
 
 inline fun View.setInvisible() {
     this.visibility = View.INVISIBLE
+}
+
+/**
+ *  Recyclerview 多布局数据源设置
+ * */
+inline fun setMultiple(num: Int): MutableList<MultipleItem> {
+    val mList: MutableList<MultipleItem> = ArrayList()
+    if (num > 0) {
+        for (i in 1..num) {
+            mList.add(MultipleItem(i))
+        }
+    }
+    return mList
 }

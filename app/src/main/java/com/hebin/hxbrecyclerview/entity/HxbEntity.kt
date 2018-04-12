@@ -1,4 +1,4 @@
-package com.hebin.hxbrecyclerview
+package com.hebin.hxbrecyclerview.entity
 
 /**
  * Author Hebin

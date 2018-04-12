@@ -4,11 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hebin.hxbrecyclerview.MainActivity">
+    android:orientation="vertical"
+    tools:context="com.hebin.hxbrecyclerview.ui.RefreshActivity">
 
-    <com.hebin.HxbRecyclerview
-        android:id="@+id/hrMain"
+
+    <Button
+        android:id="@+id/btnFresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorPrimary"
+        android:text="下拉、上拉刷新"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/sp_16" />
+
+    <Button
+        android:id="@+id/btnMultiple"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorPrimary"
+        android:text="多类型列表"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/sp_16" />
+
+    <Button
+        android:id="@+id/btnSwipe"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorPrimary"
+        android:text="侧滑弹出菜单列表"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/sp_16" />
 
 </LinearLayout>
