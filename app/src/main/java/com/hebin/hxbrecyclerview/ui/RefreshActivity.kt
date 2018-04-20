@@ -1,14 +1,19 @@
 package com.hebin.hxbrecyclerview.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.hebin.HxbLoadView
 import com.hebin.HxbRecyclerview
+import com.hebin.HxbRefreshView
+import com.hebin.anko.getView
 import com.hebin.hxbrecyclerview.R
 import com.hebin.hxbrecyclerview.adapter.RefreshAdapter
 import com.hebin.hxbrecyclerview.entity.TestEntity
+import com.hebin.indicator.AVLoadingIndicatorView
 import kotlinx.android.synthetic.main.activity_recyclerview.*
 import kotlinx.android.synthetic.main.adapter_title.*
 import org.jetbrains.anko.toast
@@ -38,6 +43,8 @@ class RefreshActivity : AppCompatActivity(), HxbRecyclerview.Listener {
 //        hrMain.startRefresh()
         // 强制分页加载
 //        hrMain.startLoadMore()
+
+
     }
 
     private fun setData() {

@@ -14,6 +14,11 @@ import com.chad.library.adapter.base.entity.MultiItemEntity
  * describe：
  */
 
+data class TestEntity(val result: ResultEntity) {
+    data class ResultEntity(val title: String)
+}
+
+
 data class MultipleItem(private val type: Int) : MultiItemEntity {
     override fun getItemType(): Int {
         return type

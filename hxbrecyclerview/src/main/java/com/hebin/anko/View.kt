@@ -2,6 +2,10 @@
 
 package com.hebin.anko
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.support.annotation.DrawableRes
+import android.view.LayoutInflater
 import android.view.View
 import com.hebin.entity.MultipleItem
 
@@ -40,4 +44,9 @@ inline fun setMultiple(num: Int): MutableList<MultipleItem> {
         }
     }
     return mList
+}
+
+@SuppressLint("ResourceType")
+inline fun Context.getView(@DrawableRes layout: Int): View {
+    return LayoutInflater.from(this).inflate(layout, null)
 }

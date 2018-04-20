@@ -67,5 +67,5 @@ publish {
     artifactId = 'hxbrecyclerview'
     publishVersion = '1.0.0'
     desc = 'This is a tool that helps developers develop Recyclerview quickly.'
-    website = 'https://github.com/Hebin320/hxbrecyclerview'
+    website = 'https://github.com/Hebin320/HxbRecyclerview'
 }

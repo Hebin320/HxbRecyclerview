@@ -3,6 +3,7 @@ package com.hebin
 import android.content.Context
 import android.support.annotation.ColorInt
 import android.support.annotation.DrawableRes
+import android.support.v7.app.AppCompatActivity
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
@@ -114,3 +115,4 @@ class HxbLoadView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         refreshTextView!!.text = pullDownStr
     }
 }
+

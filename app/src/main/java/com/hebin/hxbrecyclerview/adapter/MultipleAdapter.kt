@@ -2,6 +2,7 @@ package com.hebin.hxbrecyclerview.adapter
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.hebin.BaseHxbMultiAdapter
 import com.hebin.entity.MultipleItem
 import com.hebin.hxbrecyclerview.R
 
@@ -16,7 +17,7 @@ import com.hebin.hxbrecyclerview.R
  * <p>
  * describe：
  */
-class MultipleAdapter(var list: MutableList<MultipleItem>) : BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder>(list) {
+class MultipleAdapter(var list: MutableList<MultipleItem>) : BaseHxbMultiAdapter<MultipleItem, BaseViewHolder>(list) {
 
     init {
         addItemType(MultipleItem.ONE, R.layout.adapter_multiple_01)
@@ -25,11 +26,17 @@ class MultipleAdapter(var list: MutableList<MultipleItem>) : BaseMultiItemQuickA
     }
 
 
-    override fun convert(helper: BaseViewHolder, item: MultipleItem) {
+    override fun convert(holder: BaseViewHolder, item: MultipleItem, position: Int) {
         when (item.itemType) {
             MultipleItem.ONE -> {
-                helper.addOnClickListener(R.id.ivEmpty).addOnLongClickListener(R.id.ivEmpty)
+                holder.addOnClickListener(R.id.ivEmpty)
+                        .addOnLongClickListener(R.id.ivEmpty)
+            }
+            MultipleItem.TWO -> {
+            }
+            MultipleItem.THREE -> {
             }
         }
     }
+
 }
