@@ -342,4 +342,4 @@ class MultipleActivity : AppCompatActivity() {
 [7]: https://github.com/81813780/AVLoadingIndicatorView
 [8]: https://github.com/Hebin320/HxbRecyclerview/blob/master/hxbrecyclerview/src/main/java/com/hebin/HxbRefreshView.kt
 [9]: https://github.com/Hebin320/HxbRecyclerview/blob/master/hxbrecyclerview/src/main/java/com/hebin/HxbLoadView.kt
-[10]: https://github.com/Hebin320/HxbRecyclerview/edit/master/UpdateLog.md
+[10]: https://github.com/Hebin320/HxbRecyclerview/blob/master/UpdateLog.md
