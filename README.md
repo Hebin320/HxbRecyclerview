@@ -15,7 +15,7 @@ Recyclerview下拉、上拉刷新的第三方库已经有很多了，用过[XRec
   
 
 ```
-compile 'com.hebin:hxbrecyclerview:1.0.1'
+compile 'com.hebin:hxbrecyclerview:1.0.2'
 ```
 ## 项目使用
  - <h3>布局使用</h3> 
