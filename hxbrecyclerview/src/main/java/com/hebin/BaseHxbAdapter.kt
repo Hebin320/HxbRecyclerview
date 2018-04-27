@@ -21,4 +21,5 @@ abstract class BaseHxbAdapter<T, K : BaseViewHolder>(layoutResId: Int, data: Mut
     }
 
     protected abstract fun convert(holder: BaseViewHolder, item: T, position: Int)
+
 }

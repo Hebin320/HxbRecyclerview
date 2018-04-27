@@ -1,17 +1,11 @@
 package com.hebin.hxbrecyclerview.adapter
 
-import android.os.Bundle
-import android.os.PersistableBundle
-import android.support.v7.app.AppCompatActivity
-import android.view.View
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.hebin.BaseHxbAdapter
-import com.hebin.HxbRecyclerview
 import com.hebin.hxbrecyclerview.R
 import com.hebin.hxbrecyclerview.entity.TestEntity
-import kotlinx.android.synthetic.main.activity_recyclerview.*
 
+@Suppress("DEPRECATION")
 /**
  * Author Hebin
  * <p>
@@ -32,7 +26,7 @@ class RefreshAdapter(layout: Int, var list: MutableList<TestEntity.ResultEntity>
     }
 
     override fun convert(holder: BaseViewHolder, item: TestEntity.ResultEntity, position: Int) {
-        // 设置文本
+//        // 设置文本
         holder.setText(R.id.tvTitle, item.title)
                 // 添加点击事件
                 .addOnClickListener(R.id.tvTitle)

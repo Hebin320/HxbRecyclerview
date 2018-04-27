@@ -20,9 +20,8 @@ import com.lcodecore.tkrefreshlayout.IBottomView
 import com.lcodecore.tkrefreshlayout.IHeaderView
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
-import kotlinx.android.synthetic.main.view_empty.view.*
 import kotlinx.android.synthetic.main.view_hxbrecyclerview.view.*
-import org.jetbrains.anko.imageResource
+import org.jetbrains.anko.internals.AnkoInternals
 
 /**
  * Author Hebin
@@ -70,8 +69,8 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
 
     // 自定义为空的布局
     fun setEmptyView(view: View) {
-        llFailed.removeAllViews()
-        llFailed.addView(view)
+        llEmpty.removeAllViews()
+        llEmpty.addView(view)
     }
 
     // 自定义加载失败的布局
@@ -118,6 +117,7 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
         this.multiAdapter = adapter
         this.rvHxb.adapter = adapter
     }
+
 
     // 设置下拉刷新动画的颜色
     fun setIndicatorColor(color: Int) {
