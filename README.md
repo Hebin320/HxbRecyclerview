@@ -1,3 +1,7 @@
+## [更新日志][10]
+
+
+
 ## 前言
 Recyclerview下拉、上拉刷新的第三方库已经有很多了，用过[XRecyclerview][1]跟[SuperRecyclerview][2]，之前用XRecyclerview的时候，就遇到过在安卓5.0以下的部分手机，会出现不显示的情况，后来就换了SuperRecyclerview，用了一段时间后，发现在下拉刷新的时候，如果实现list.clear()则会闪退，找了好久没找到原因。后面就用了其他几个第三方库；
 
@@ -338,3 +342,4 @@ class MultipleActivity : AppCompatActivity() {
 [7]: https://github.com/81813780/AVLoadingIndicatorView
 [8]: https://github.com/Hebin320/HxbRecyclerview/blob/master/hxbrecyclerview/src/main/java/com/hebin/HxbRefreshView.kt
 [9]: https://github.com/Hebin320/HxbRecyclerview/blob/master/hxbrecyclerview/src/main/java/com/hebin/HxbLoadView.kt
+[10]: https://github.com/Hebin320/HxbRecyclerview/blob/master/UpdateLog.md
