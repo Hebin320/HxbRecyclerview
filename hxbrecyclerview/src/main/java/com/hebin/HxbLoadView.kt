@@ -3,17 +3,13 @@ package com.hebin
 import android.content.Context
 import android.support.annotation.ColorInt
 import android.support.annotation.DrawableRes
-import android.support.v7.app.AppCompatActivity
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import com.hebin.indicator.AVLoadingIndicatorView
+import com.hebin.hxbindicator.AVLoadingIndicatorView
 import com.lcodecore.tkrefreshlayout.IBottomView
-import com.lcodecore.tkrefreshlayout.IHeaderView
-import com.lcodecore.tkrefreshlayout.OnAnimEndListener
-import kotlinx.android.synthetic.main.view_hebin_refresh.view.*
 
 /**
  * Author Hebin

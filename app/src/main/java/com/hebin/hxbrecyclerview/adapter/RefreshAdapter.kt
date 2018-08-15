@@ -26,7 +26,7 @@ class RefreshAdapter(layout: Int, var list: MutableList<TestEntity.ResultEntity>
     }
 
     override fun convert(holder: BaseViewHolder, item: TestEntity.ResultEntity, position: Int) {
-//        // 设置文本
+                // 设置文本
         holder.setText(R.id.tvTitle, item.title)
                 // 添加点击事件
                 .addOnClickListener(R.id.tvTitle)

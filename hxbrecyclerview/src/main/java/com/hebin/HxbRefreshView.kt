@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import com.hebin.indicator.AVLoadingIndicatorView
+import com.hebin.hxbindicator.AVLoadingIndicatorView
 import com.lcodecore.tkrefreshlayout.IHeaderView
 import com.lcodecore.tkrefreshlayout.OnAnimEndListener
 

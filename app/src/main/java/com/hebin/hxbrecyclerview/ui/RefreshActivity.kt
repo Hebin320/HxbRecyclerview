@@ -3,6 +3,7 @@ package com.hebin.hxbrecyclerview.ui
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.hebin.HxbRecyclerview
@@ -13,6 +14,7 @@ import com.hebin.pullDownStr
 import com.hebin.textColor
 import kotlinx.android.synthetic.main.activity_recyclerview.*
 import org.jetbrains.anko.toast
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 
 
 class RefreshActivity : AppCompatActivity(), HxbRecyclerview.Listener {
@@ -44,7 +46,7 @@ class RefreshActivity : AppCompatActivity(), HxbRecyclerview.Listener {
     }
 
     private fun setData() {
-        val title = arrayOf("标题1", "标题2", "标题3", "标题4", "标题1", "标题2", "标题3", "标题4")
+        val title = arrayOf("标题1", "标题2", "标题3", "标题4", "标题1", "标题2", "标题3", "标题4","标题3","标题3")
         for (s in title) {
             val entity = TestEntity.ResultEntity()
             entity.title = s

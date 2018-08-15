@@ -3,15 +3,23 @@
 package com.hebin
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.graphics.Point
+import android.graphics.Rect
+import android.os.Build
+import android.os.Handler
 import android.support.annotation.ColorInt
 import android.support.annotation.DrawableRes
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.view.View
+import android.util.DisplayMetrics
+import android.util.Log
+import android.view.*
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.hebin.anko.setGone
@@ -22,6 +30,8 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
 import kotlinx.android.synthetic.main.view_hxbrecyclerview.view.*
 import org.jetbrains.anko.internals.AnkoInternals
+import com.lcodecore.tkrefreshlayout.header.SinaRefreshView
+
 
 /**
  * Author Hebin
@@ -55,16 +65,46 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
         this.trlHxb.setHeaderHeight(60f)
         this.trlHxb.setBottomHeight(60f)
         this.trlHxb.setBottomView(bottomView)
+        this.trlHxb.setAutoLoadMore(true)
         val failView = LayoutInflater.from(context).inflate(R.layout.view_failed, null)
         val nomoreView = LayoutInflater.from(context).inflate(R.layout.view_nomore, null)
         val emptyView = LayoutInflater.from(context).inflate(R.layout.view_empty, null)
+        val emptyLp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+        emptyLp.gravity = Gravity.CENTER
+        emptyLp.height = getShigh(context as Activity)
+        emptyView.layoutParams = emptyLp
         llNomore.addView(nomoreView)
         llFailed.addView(failView)
         llEmpty.addView(emptyView)
         // 点击加载失败布局，分页加载
-        llFailed.setOnClickListener { this.trlHxb.startLoadMore() }
+        llFailed.setOnClickListener {
+            this.trlHxb.setEnableLoadmore(true)
+            this.trlHxb.startLoadMore()
+            this.trlHxb.setAutoLoadMore(true)
+        }
         // 点击为空的布局，强制刷新列表
-        llEmpty.setOnClickListener { this.trlHxb.startRefresh() }
+        llEmpty.setOnClickListener {
+            this.trlHxb.setEnableRefresh(true)
+            this.trlHxb.setEnableLoadmore(true)
+            this.trlHxb.startRefresh()
+        }
+        setFirstLoadMore()
+    }
+
+    fun setFirstLoadMore() {
+        rvHxb.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+
+            override fun onGlobalLayout() {
+                rvHxb.viewTreeObserver.removeGlobalOnLayoutListener(this)
+                if (rvHxb.measuredHeight < (getShigh(context as Activity) - 70f - getStatusbar(context as Activity))) {
+                    trlHxb.setEnableLoadmore(false)
+                    trlHxb.setAutoLoadMore(false)
+                } else {
+                    trlHxb.setEnableLoadmore(true)
+                    trlHxb.setAutoLoadMore(true)
+                }
+            }
+        })
     }
 
     // 自定义为空的布局
@@ -171,12 +211,12 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
 
     // 设置加载更多动画的颜色
     fun setBottomIndicatorColor(color: Int) {
-        headView?.setIndicatorColor(color)
+        bottomView?.setIndicatorColor(color)
     }
 
     // 设置加载更多动画的样式
     fun setBottomIndicatorId(indicator: Int) {
-        headView?.setIndicatorId(indicator)
+        bottomView?.setIndicatorId(indicator)
     }
 
     // 设置加载更多的固定高度
@@ -186,12 +226,12 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
 
     // 设置加载更多图标的资源文件
     fun setBottomArrowResource(@DrawableRes resId: Int) {
-        headView?.setArrowResource(resId)
+        bottomView?.setArrowResource(resId)
     }
 
     // 设置加载更多的字体颜色
     fun setBottomTextColor(@ColorInt color: Int) {
-        headView?.setTextColor(color)
+        bottomView?.setTextColor(color)
     }
 
     // 设置加载更多上拉刷新的显示文字
@@ -201,12 +241,12 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
 
     // 设置加载更多刷新中的显示文字
     fun setBottomReleaseRefreshStr(releaseRefreshStr1: String) {
-        headView?.setReleaseRefreshStr(releaseRefreshStr1)
+        bottomView?.setReleaseRefreshStr(releaseRefreshStr1)
     }
 
     // 设置加载更多刷新完成的显示文字
     fun setBottomRefreshingStr(refreshingStr1: String) {
-        headView?.setRefreshingStr(refreshingStr1)
+        bottomView?.setRefreshingStr(refreshingStr1)
     }
 
     // 设置加载更多的最大高度
@@ -227,8 +267,6 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
                 llFailed.setGone()
                 llNomore.setGone()
                 llEmpty.setGone()
-                setEnableRefresh(true)
-                setEnableLoadmore(true)
                 listener.onRefresh()
             }
 
@@ -237,7 +275,6 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
                 llFailed.setGone()
                 llNomore.setGone()
                 llEmpty.setGone()
-                setEnableLoadmore(true)
                 listener.onLoadMore()
             }
         })
@@ -262,6 +299,7 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
     // 刷新完成
     fun refreshComplete() {
         this.trlHxb.finishRefreshing()
+        setFirstLoadMore()
     }
 
     // 加载更多完成
@@ -286,6 +324,8 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
         llEmpty.setGone()
         llFailed.setVisible()
         llNomore.setGone()
+        this.trlHxb.setAutoLoadMore(false)
+        handler.post { svHebin.fullScroll(ScrollView.FOCUS_DOWN) }
     }
 
     // 没有更多
@@ -295,6 +335,8 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
         llEmpty.setGone()
         llFailed.setGone()
         llNomore.setVisible()
+        this.trlHxb.setAutoLoadMore(false)
+        handler.post { svHebin.fullScroll(ScrollView.FOCUS_DOWN) }
     }
 
     // 显示空布局
@@ -306,6 +348,7 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
         llFailed.setGone()
         llNomore.setGone()
         llEmpty.setVisible()
+        this.trlHxb.setAutoLoadMore(true)
     }
 
     // 强制刷新
@@ -336,5 +379,42 @@ class HxbRecyclerview @JvmOverloads constructor(context: Context, attrs: Attribu
         fun onItemLongClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {}
     }
 
+    /**
+     * 获取屏幕高度
+     */
+    fun getShigh(activity: Activity): Int {
+        var realHeight = 0
+        try {
+            val display = activity.windowManager.defaultDisplay
+            val metrics = DisplayMetrics()
+            display.getMetrics(metrics)
+            if (Build.VERSION.SDK_INT >= 17) {
+                val size = Point()
+                display.getRealSize(size)
+                realHeight = size.y
+            } else if (Build.VERSION.SDK_INT < 17) {
+                val mGetRawH = Display::class.java.getMethod("getRawHeight")
+                realHeight = mGetRawH.invoke(display) as Int
+            } else {
+                realHeight = metrics.heightPixels
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return realHeight
+    }
+
+    /**
+     * 获取状态栏高度
+     */
+    fun getStatusbar(activity: Activity): Int {
+        var high = 0
+        val rectangle = Rect()
+        val window = activity.window
+        window.decorView.getWindowVisibleDisplayFrame(rectangle)
+        high = rectangle.top
+        return high
+    }
 
 }
